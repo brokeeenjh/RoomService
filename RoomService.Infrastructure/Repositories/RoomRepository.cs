@@ -31,7 +31,7 @@ public class RoomRepository : IRoomRepository
     public async Task<RoomEntity> GetRoomByUserIdAsync(Guid id)
     {
         var user = await _dbContext.Users
-            .Include(x => x.RoomEntity)
+            .Include(x => x.bookingEntity)
             .FirstOrDefaultAsync( x => x.Id == id );
 
         if (user == null)
@@ -39,14 +39,14 @@ public class RoomRepository : IRoomRepository
             throw new Exception("User not found");
         }
         
-        return user.RoomEntity;
+        return user.bookingEntity.Room;
     }
 
     public async Task<IEnumerable<RoomEntity>> FreeRoomsAsync()
     {
        var rooms =  await _dbContext.Rooms
            .Where(x => x.IsActive == true)
-           .Where(x => x.EndDate <= DateTime.UtcNow || x.StartDate >= DateTime.UtcNow)
+           .Where(x => x.BookingEntity.EndDate <= DateTime.UtcNow || x.BookingEntity.StartDate >= DateTime.UtcNow)
             .ToListAsync();
        return rooms;
     }

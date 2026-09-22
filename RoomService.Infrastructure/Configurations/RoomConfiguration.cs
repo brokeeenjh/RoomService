@@ -10,6 +10,6 @@ public class RoomConfiguration : IEntityTypeConfiguration<RoomEntity>
     {
         builder.HasKey(x => x.Id);
         
-        builder.HasOne(x => x.User).WithOne(u => u.RoomEntity).HasForeignKey<RoomEntity>(x => x.UserEntityId);
+        builder.HasOne(x => x.User).WithOne().HasForeignKey<RoomEntity>(x => x.UserEntityId);
     }
 }
