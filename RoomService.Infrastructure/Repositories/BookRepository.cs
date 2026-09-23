@@ -16,25 +16,27 @@ public class BookRepository : IBookingRepository
 
 
 
-    public async Task UpdateBook(Guid roomId, Guid userId, DateTime startDate, DateTime endDate)
+    public async Task UpdateBook(Guid bookEntityId, Guid roomId, Guid userId, DateTime startDate, DateTime endDate)
     {
-        var room = _dbContext.Rooms.FirstOrDefaultAsync(r => r.Id == roomId);
+        var room = await _dbContext.Rooms.FirstOrDefaultAsync(r => r.Id == roomId);
         if (room == null)
             throw new Exception("Room not found");
         
-        var user = _dbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
+        var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
         if (user == null)
             throw new Exception("User not found");
-
-        var bookingEntity = new BookingEntity()
-        {
-            RoomEntityId = roomId,
-            UserEntityId = userId,
-            StartDate = startDate,
-            EndDate = endDate,
-        };
         
-        _dbContext.Bookings.Update(bookingEntity);
+        var bookingEntity =  await _dbContext.Bookings.FirstOrDefaultAsync(b => b.Id == bookEntityId);
+        
+        if (bookingEntity == null)
+            throw new Exception("Book not found");
+
+        bookingEntity.StartDate = startDate;
+        bookingEntity.EndDate = endDate;
+        bookingEntity.RoomEntityId = roomId;
+        bookingEntity.UserEntityId = userId;
+
+        await _dbContext.SaveChangesAsync();
     }
 
     public async Task DeleteBook(Guid id)
@@ -57,11 +59,12 @@ public class BookRepository : IBookingRepository
         return book;
     }
 
-    public async Task<bool> IsOverlapped(Guid roomId, DateTime startTime , DateTime endTime)
+    public async Task<bool> IsOverlapped(Guid roomId, DateTime startTime , DateTime endTime, Guid? excludeBookingId = null)
     {
         return await _dbContext.Bookings
             .AnyAsync(b => b.Room.IsActive == true &&
                            b.RoomEntityId == roomId &&
+                           (excludeBookingId == null || b.Id != excludeBookingId) && 
                            b.StartDate < endTime &&
                            b.EndDate > startTime);
     }
@@ -86,5 +89,11 @@ public class BookRepository : IBookingRepository
             throw new Exception("Room not found");
 
         return booking;
+    }
+
+    public async Task CreateBook(BookingEntity booking)
+    {
+        await _dbContext.Bookings.AddAsync(booking);
+        await _dbContext.SaveChangesAsync();
     }
 }
