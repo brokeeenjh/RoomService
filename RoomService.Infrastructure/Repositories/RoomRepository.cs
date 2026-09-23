@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using RoomService.Application.Interfaces.Repositories;
 using RoomService.Domain.Entities;
 using RoomService.Infrastructure.Dbcontext;
@@ -32,12 +33,16 @@ public class RoomRepository : IRoomRepository
     {
         var user = await _dbContext.Users
             .Include(x => x.bookingEntity)
+            .ThenInclude(x => x.Room)
             .FirstOrDefaultAsync( x => x.Id == id );
 
         if (user == null)
         {
             throw new Exception("User not found");
-        }
+        }   
+        
+        if (user.bookingEntity == null)
+            throw new Exception("User is not booking");
         
         return user.bookingEntity.Room;
     }
@@ -45,8 +50,11 @@ public class RoomRepository : IRoomRepository
     public async Task<IEnumerable<RoomEntity>> FreeRoomsAsync()
     {
        var rooms =  await _dbContext.Rooms
+           .Include(x => x.BookingEntity)
            .Where(x => x.IsActive == true)
-           .Where(x => x.BookingEntity.EndDate <= DateTime.UtcNow || x.BookingEntity.StartDate >= DateTime.UtcNow)
+           .Where(x => x.BookingEntity.StartDate >  DateTime.UtcNow ||
+                       x.BookingEntity.EndDate < DateTime.UtcNow ||
+                       x.BookingEntity == null)
             .ToListAsync();
        return rooms;
     }
@@ -57,5 +65,6 @@ public class RoomRepository : IRoomRepository
             .FirstOrDefaultAsync(x => x.Id == id);
         
         _dbContext.Rooms.Remove(room);
+        await _dbContext.SaveChangesAsync();
     }
 }
