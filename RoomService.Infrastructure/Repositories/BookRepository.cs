@@ -41,7 +41,7 @@ public class BookRepository : IBookingRepository
 
     public async Task DeleteBook(Guid id)
     {
-        var book = _dbContext.Bookings.FirstOrDefault(b => b.Id == id);
+        var book = await _dbContext.Bookings.FirstOrDefaultAsync(b => b.Id == id);
         if (book == null)
             throw new Exception("Book not found");
         

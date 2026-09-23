@@ -67,6 +67,42 @@ public class BookingService : IBookingService
         return bookToDTO;
     }
 
+    public async Task<BookingDTO> GetBookByRoomAsync(Guid roomId)
+    {
+        var book = await _bookingRepository.GetBookByRoomId(roomId);
+        
+        if (book == null)
+            
+            throw new Exception("Book not found");
+
+        var bookToDTO = new BookingDTO()
+        {
+            roomId = book.RoomEntityId,
+            startDate = book.StartDate,
+            endDate = book.EndDate,
+            userId = book.UserEntityId,
+        };
+
+        return bookToDTO;
+    }
+
+    public async Task<BookingDTO> GetBookByUserIdAsync(Guid userId)
+    {
+        var book = await _bookingRepository.GetBookByUserId(userId);
+        
+        if (book == null)
+            throw new Exception("Book not found");
+
+        var bookToDTO = new BookingDTO()
+        {
+            roomId = book.RoomEntityId,
+            startDate = book.StartDate,
+            endDate = book.EndDate,
+            userId = book.UserEntityId,
+        };
+        return bookToDTO;
+    }
+
     public async Task UpdateBookingAsync(UpdateBookingDTO booking)
     {
         var book = await _bookingRepository.GetBook(booking.bookingId);
