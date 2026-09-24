@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "0nBfI/M2gZw=",
+  "dgSpecHash": "MnDRKHAef/8=",
   "success": true,
   "projectFilePath": "C:\\Users\\mouze\\RiderProjects\\RoomService.API\\RoomService.Infrastructure\\RoomService.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mouze\\.nuget\\packages\\azure.core\\1.50.0\\azure.core.1.50.0.nupkg.sha512",
     "C:\\Users\\mouze\\.nuget\\packages\\azure.identity\\1.17.1\\azure.identity.1.17.1.nupkg.sha512",
     "C:\\Users\\mouze\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\mouze\\.nuget\\packages\\mediatr\\14.2.0\\mediatr.14.2.0.nupkg.sha512",
+    "C:\\Users\\mouze\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
     "C:\\Users\\mouze\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.3.11\\microsoft.aspnetcore.authentication.2.3.11.nupkg.sha512",
     "C:\\Users\\mouze\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.3.9\\microsoft.aspnetcore.authentication.abstractions.2.3.9.nupkg.sha512",
     "C:\\Users\\mouze\\.nuget\\packages\\microsoft.aspnetcore.authentication.cookies\\2.3.12\\microsoft.aspnetcore.authentication.cookies.2.3.12.nupkg.sha512",
