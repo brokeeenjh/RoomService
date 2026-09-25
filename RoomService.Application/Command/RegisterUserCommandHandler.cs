@@ -15,6 +15,6 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, T
     {
         await _userService.RegisterUserAsync(request.email, request.name, request.password);
         
-        return Task.CompletedTask;
+        return Task.CompletedTask; 
     }
 }

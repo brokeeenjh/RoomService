@@ -63,5 +63,36 @@ public class RoomService : IRoomService
         return roomToDTO;
     }
 
-   
+    public async Task UpdateRoomAsync(Guid id, Guid userId)
+    {
+        var roomToUpdate = await _roomRepository.GetRoomByIdAsync(id);
+        
+        if (roomToUpdate == null)
+            throw new Exception("this room doesn't exist");
+        
+      
+    }
+
+    public async Task<IEnumerable<RoomDTO>> GetAllFreeRooms()
+    {
+        var rooms = await _roomRepository.FreeRoomsAsync();
+
+        var roomsToDto = rooms.Select(x => new RoomDTO()
+        {
+            bookId = x.bookId,
+            userId = x.UserEntityId
+        });
+        
+        return roomsToDto.ToList();
+    }
+
+    public async Task DeleteRoomAsync(Guid id)
+    {
+        var room = await _roomRepository.GetRoomByIdAsync(id);
+        
+        if (room == null)
+            throw new Exception("this room doesn't exist");
+        
+        await _roomRepository.DeleteRoomAsync(id);
+    }
 }

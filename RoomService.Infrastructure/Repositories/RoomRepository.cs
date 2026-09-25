@@ -55,6 +55,7 @@ public class RoomRepository : IRoomRepository
            .Where(x => x.BookingEntity.StartDate >  DateTime.UtcNow ||
                        x.BookingEntity.EndDate < DateTime.UtcNow ||
                        x.BookingEntity == null)
+           .OrderBy( x=>x.BookingEntity.StartDate)
             .ToListAsync();
        return rooms;
     }
@@ -65,6 +66,21 @@ public class RoomRepository : IRoomRepository
             .FirstOrDefaultAsync(x => x.Id == id);
         
         _dbContext.Rooms.Remove(room);
+        await _dbContext.SaveChangesAsync();
+    }
+    
+
+    public async Task UpdateRoomAsync(Guid roomId, Guid userId)
+    {
+        var room = await _dbContext.Rooms
+            .Include(x => x.User)
+            .FirstOrDefaultAsync(x => x.Id == roomId);
+        
+        if (room == null)
+            throw new Exception("Room not found");
+        
+        room.UserEntityId =  userId;
+        
         await _dbContext.SaveChangesAsync();
     }
 }
