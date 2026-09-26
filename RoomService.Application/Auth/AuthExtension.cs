@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using RoomService.Domain.Entities;
 
 namespace RoomService.Application.Auth;
 
@@ -40,7 +41,13 @@ public static class AuthExtension
             };
         });
 
-        services.AddAuthorization();
+        services.AddAuthorization(policy =>
+        {
+            policy.AddPolicy("UserPolicy", policyUser =>
+            {
+                policyUser.RequireRole("User");
+            });
+        });
         return services;
     }
 }

@@ -1,0 +1,13 @@
+C:\Users\mouze\RiderProjects\RoomService.API\RoomService.Domain\bin\Debug\net10.0\RoomService.Domain.deps.json
+C:\Users\mouze\RiderProjects\RoomService.API\RoomService.Domain\bin\Debug\net10.0\RoomService.Domain.dll
+C:\Users\mouze\RiderProjects\RoomService.API\RoomService.Domain\bin\Debug\net10.0\RoomService.Domain.pdb
+C:\Users\mouze\RiderProjects\RoomService.API\RoomService.Domain\obj\Debug\net10.0\RoomService.Domain.csproj.AssemblyReference.cache
+C:\Users\mouze\RiderProjects\RoomService.API\RoomService.Domain\obj\Debug\net10.0\RoomService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mouze\RiderProjects\RoomService.API\RoomService.Domain\obj\Debug\net10.0\RoomService.Domain.AssemblyInfoInputs.cache
+C:\Users\mouze\RiderProjects\RoomService.API\RoomService.Domain\obj\Debug\net10.0\RoomService.Domain.AssemblyInfo.cs
+C:\Users\mouze\RiderProjects\RoomService.API\RoomService.Domain\obj\Debug\net10.0\RoomService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\mouze\RiderProjects\RoomService.API\RoomService.Domain\obj\Debug\net10.0\RoomService.Domain.sourcelink.json
+C:\Users\mouze\RiderProjects\RoomService.API\RoomService.Domain\obj\Debug\net10.0\RoomService.Domain.dll
+C:\Users\mouze\RiderProjects\RoomService.API\RoomService.Domain\obj\Debug\net10.0\refint\RoomService.Domain.dll
+C:\Users\mouze\RiderProjects\RoomService.API\RoomService.Domain\obj\Debug\net10.0\RoomService.Domain.pdb
+C:\Users\mouze\RiderProjects\RoomService.API\RoomService.Domain\obj\Debug\net10.0\ref\RoomService.Domain.dll

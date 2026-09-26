@@ -70,7 +70,7 @@ public class RoomRepository : IRoomRepository
     }
     
 
-    public async Task UpdateRoomAsync(Guid roomId, Guid userId)
+    public async Task UpdateRoomAsync(Guid roomId, Guid userId, Guid bookingId)
     {
         var room = await _dbContext.Rooms
             .Include(x => x.User)
@@ -80,6 +80,8 @@ public class RoomRepository : IRoomRepository
             throw new Exception("Room not found");
         
         room.UserEntityId =  userId;
+        room.Id = roomId;
+        room.bookId = bookingId;
         
         await _dbContext.SaveChangesAsync();
     }

@@ -10,5 +10,5 @@ public interface IRoomRepository
     public Task<IEnumerable<RoomEntity>> FreeRoomsAsync();
     public Task DeleteRoomAsync(Guid id);
 
-    public Task UpdateRoomAsync(Guid id, Guid userId);
+    public Task UpdateRoomAsync(Guid id, Guid userId, Guid bookingId);
 }

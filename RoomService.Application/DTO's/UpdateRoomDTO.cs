@@ -3,5 +3,6 @@
 public class UpdateRoomDTO
 {
     public Guid userId { get; set; }
+    public Guid roomId { get; set; }
     public Guid bookId { get; set; }
 }

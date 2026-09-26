@@ -63,14 +63,19 @@ public class RoomService : IRoomService
         return roomToDTO;
     }
 
-    public async Task UpdateRoomAsync(Guid id, Guid userId)
+    public async Task UpdateRoomAsync(UpdateRoomDTO  updateRoomDTO)
     {
-        var roomToUpdate = await _roomRepository.GetRoomByIdAsync(id);
+        var roomToUpdate = await _roomRepository.GetRoomByIdAsync(updateRoomDTO.roomId);
         
         if (roomToUpdate == null)
             throw new Exception("this room doesn't exist");
+
+        roomToUpdate.Id = updateRoomDTO.roomId;
+        roomToUpdate.bookId = updateRoomDTO.bookId;
+        roomToUpdate.UserEntityId = updateRoomDTO.userId;
         
-      
+        await _roomRepository.UpdateRoomAsync(roomToUpdate.Id, roomToUpdate.UserEntityId, roomToUpdate.bookId);
+
     }
 
     public async Task<IEnumerable<RoomDTO>> GetAllFreeRooms()
