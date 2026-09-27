@@ -1,8 +1,11 @@
+using Microsoft.AspNetCore.Identity;
+using RoomService.API.Seed;
 using RoomService.Application.Auth;
 using RoomService.Application.Interfaces.Repositories;
 using RoomService.Application.Interfaces.Services;
 using RoomService.Domain;
 using RoomService.Domain.Entities;
+using RoomService.Infrastructure.Dbcontext;
 using RoomService.Infrastructure.Repositories;
 using RoomService.Infrastructure.Services;
 
@@ -29,12 +32,27 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    try
+    {
+        var services = scope.ServiceProvider;
+        var dbContext = services.GetRequiredService<AppDbContext>();
+        var userManager = services.GetRequiredService<UserManager<UserEntity>>();
+        var roleManager = services.GetRequiredService<RoleManager<RoleEntity>>();
+
+        await DbInitializator.Seed(dbContext, userManager, roleManager);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+        throw ex;
+    }
+    
+}
+
 app.UseHttpsRedirection();
 app.MapControllers();
-app.Run((context) =>
-{
-    Console.WriteLine("Hello World!");
-    return context.Response.WriteAsync("Hello World!");
-});
+
 app.Run();
 
